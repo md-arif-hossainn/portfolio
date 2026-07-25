@@ -1,0 +1,193 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Light theme (default). Values are `R G B` so Tailwind opacity modifiers work. */
+  :root {
+    --color-canvas: 250 250 250;
+    --color-surface: 255 255 255;
+    --color-surface-2: 244 244 245;
+    --color-line: 228 228 231;
+
+    --color-ink: 17 17 20;
+    --color-ink-muted: 82 82 91;
+    --color-ink-subtle: 113 113 122;
+
+    /* `accent` is for text/icons; `accent-solid` is for filled buttons, which
+       need a darker blue to keep white label text above 4.5:1 contrast. */
+    --color-accent: 37 99 235;
+    --color-accent-hover: 29 78 216;
+    --color-accent-solid: 37 99 235;
+    --color-accent-fg: 255 255 255;
+    --color-accent-soft: 239 246 255;
+
+    --shadow: 16 24 40;
+    --glass: 250 250 250;
+    --noise-opacity: 0.035;
+
+    color-scheme: light;
+  }
+
+  .dark {
+    --color-canvas: 10 10 12;
+    --color-surface: 19 19 23;
+    --color-surface-2: 26 26 31;
+    --color-line: 39 39 46;
+
+    --color-ink: 244 244 245;
+    --color-ink-muted: 163 163 173;
+    /* Kept light enough to clear 4.5:1 on `surface` — it carries small meta text. */
+    --color-ink-subtle: 140 140 152;
+
+    --color-accent: 96 165 250;
+    --color-accent-hover: 147 197 253;
+    --color-accent-solid: 37 99 235;
+    --color-accent-fg: 255 255 255;
+    --color-accent-soft: 23 37 62;
+
+    --shadow: 0 0 0;
+    --glass: 10 10 12;
+    --noise-opacity: 0.05;
+
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Keep anchor targets clear of the sticky navbar. */
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-canvas text-ink antialiased;
+    text-rendering: optimizeLegibility;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-canvas rounded-sm;
+  }
+
+  ::selection {
+    @apply bg-accent/20 text-ink;
+  }
+
+  /* Themed scrollbar so dark mode doesn't get a bright gutter. */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-canvas;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full border-4 border-solid border-transparent bg-line bg-clip-content;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-ink-subtle bg-clip-content;
+  }
+}
+
+@layer components {
+  .section-shell {
+    @apply mx-auto w-full max-w-content px-5 sm:px-8 lg:px-10;
+  }
+
+  .section-spacing {
+    @apply py-20 sm:py-28 lg:py-32;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent;
+  }
+
+  .heading-2 {
+    @apply mt-4 font-display text-[2rem] font-bold leading-[1.1] tracking-[-0.02em] text-ink sm:text-[2.75rem];
+  }
+
+  .lede {
+    @apply mt-5 max-w-2xl text-base leading-relaxed text-ink-muted sm:text-lg;
+  }
+
+  /* Base card. `card-interactive` adds the lift + accent border on hover. */
+  .card {
+    @apply rounded-2xl border border-line bg-surface shadow-card;
+  }
+
+  .card-interactive {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-card-hover;
+  }
+
+  .pill {
+    @apply inline-flex items-center rounded-full border border-line bg-surface-2 px-3 py-1 text-sm text-ink-muted transition-colors;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-accent-solid px-5 py-3 text-sm font-semibold text-accent-fg shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent-hover hover:shadow-glow disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-line bg-surface px-5 py-3 text-sm font-semibold text-ink shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent hover:shadow-card-hover;
+  }
+
+  .icon-btn {
+    @apply inline-flex items-center justify-center rounded-xl border border-line bg-surface text-ink-muted transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent hover:shadow-card-hover;
+  }
+}
+
+@layer utilities {
+  /* Fine film grain. Sits above the background, below content. */
+  .noise::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: var(--noise-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .glass {
+    background-color: rgb(var(--glass) / 0.72);
+    backdrop-filter: saturate(180%) blur(16px);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+  }
+
+  /* Hairline divider that fades out at both ends. */
+  .rule-fade {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgb(var(--color-line)),
+      transparent
+    );
+  }
+
+  .text-gradient {
+    background: linear-gradient(
+      135deg,
+      rgb(var(--color-ink)),
+      rgb(var(--color-ink) / 0.65)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
