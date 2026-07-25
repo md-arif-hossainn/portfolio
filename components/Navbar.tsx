@@ -40,13 +40,38 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, []);
 
-  // Lock body scroll while the mobile sheet is open.
+  // Lock body scroll while the mobile sheet is open. Writing the property when
+  // it is already correct would invalidate an in-flight smooth scroll, so only
+  // touch it on a real change.
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : '';
+    const next = open ? 'hidden' : '';
+    if (document.body.style.overflow !== next) {
+      document.body.style.overflow = next;
+    }
     return () => {
-      document.body.style.overflow = '';
+      if (document.body.style.overflow !== '') {
+        document.body.style.overflow = '';
+      }
     };
   }, [open]);
+
+  // A native hash jump starts a smooth scroll, and the effect above then unlocks
+  // the body mid-animation — which cancels it, so the tap appears to do nothing.
+  // Unlock first, then scroll. Default `behavior` follows the CSS, so the
+  // reduced-motion override still applies.
+  const handleMobileNavClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    const target = document.getElementById(href.slice(1));
+    if (!target) return;
+
+    event.preventDefault();
+    document.body.style.overflow = '';
+    setOpen(false);
+    target.scrollIntoView();
+    history.replaceState(null, '', href);
+  };
 
   return (
     <header
@@ -131,7 +156,7 @@ export default function Navbar() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    onClick={() => setOpen(false)}
+                    onClick={(event) => handleMobileNavClick(event, link.href)}
                     className="block rounded-lg px-3 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:bg-surface-2 hover:text-accent"
                   >
                     {link.label}
