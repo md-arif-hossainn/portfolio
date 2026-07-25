@@ -11,6 +11,10 @@
 .DS_Store
 *.pem
 
+# JetBrains / Android Studio project files — machine-specific, not shared.
+# .vscode/ is intentionally committed: it carries the shared editor setup.
+.idea/
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
