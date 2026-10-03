@@ -147,10 +147,8 @@ export type Project = {
   image: string;
   accentFrom: string;
   accentTo: string;
-  /** Renders the wide horizontal card. Also carries the "Featured" eyebrow. */
+  /** The lead entry: set larger and loaded with priority. */
   featured?: boolean;
-  /** Wide at lg only. Placed so the bento grid closes with no empty cells. */
-  wide?: boolean;
   /** Public store listings. Rendered as separate buttons, so a card can have both. */
   links?: { label: 'Google Play' | 'App Store'; href: string }[];
 };
@@ -211,7 +209,6 @@ export const projects: Project[] = [
     image: '/projects/deen.svg',
     accentFrom: '#0F766E',
     accentTo: '#5EEAD4',
-    wide: true,
     links: [
       {
         label: 'Google Play',
@@ -241,6 +238,34 @@ export const projects: Project[] = [
       {
         label: 'App Store',
         href: 'https://apps.apple.com/ie/app/daily-cal-track-your-bites/id6745953709',
+      },
+    ],
+  },
+  {
+    name: 'FluentAI',
+    subtitle: 'AI English Speaking Coach',
+    description:
+      'An AI speaking coach built around the hard part of a language — talking. Learners hold a spoken conversation through roleplay, debate, voice journal and daily missions, then get scored on pronunciation, fluency, grammar and vocabulary, down to the exact words they mispronounced. Localized in English, Bengali and Portuguese, with subscription billing.',
+    tech: [
+      'Flutter',
+      'Clean Architecture',
+      'AI',
+      'Speech-to-Text',
+      'Localization',
+      'In-App Purchase',
+    ],
+    badge: 'Voice AI',
+    image: '/projects/fluentai.svg',
+    accentFrom: '#7E22CE',
+    accentTo: '#E879F9',
+    links: [
+      {
+        label: 'Google Play',
+        href: 'https://play.google.com/store/apps/details?id=com.atmlabs.fluentai',
+      },
+      {
+        label: 'App Store',
+        href: 'https://apps.apple.com/app/fluentai-learn-english-with-ai/id6759645526',
       },
     ],
   },
@@ -302,7 +327,6 @@ export const projects: Project[] = [
     image: '/projects/ngo.svg',
     accentFrom: '#4F46E5',
     accentTo: '#818CF8',
-    wide: true,
   },
   {
     name: 'Foody',

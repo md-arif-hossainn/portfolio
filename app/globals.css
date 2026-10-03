@@ -3,52 +3,52 @@
 @tailwind utilities;
 
 @layer base {
-  /* Light theme (default). Values are `R G B` so Tailwind opacity modifiers work. */
+  /* Light theme (default). Values are `R G B` so Tailwind opacity modifiers work.
+     The palette is a warm near-monochrome: paper and ink carry the design, and
+     the clay accent is rationed to interactive affordances only. */
   :root {
-    --color-canvas: 250 250 250;
+    --color-canvas: 250 250 248;
     --color-surface: 255 255 255;
-    --color-surface-2: 244 244 245;
-    --color-line: 228 228 231;
+    --color-surface-2: 243 242 238;
+    --color-line: 227 225 218;
+    --color-line-strong: 205 202 192;
 
-    --color-ink: 17 17 20;
-    --color-ink-muted: 82 82 91;
-    --color-ink-subtle: 113 113 122;
+    --color-ink: 26 26 23;
+    --color-ink-muted: 86 86 78;
+    --color-ink-subtle: 110 110 100;
 
-    /* `accent` is for text/icons; `accent-solid` is for filled buttons, which
-       need a darker blue to keep white label text above 4.5:1 contrast. */
-    --color-accent: 37 99 235;
-    --color-accent-hover: 29 78 216;
-    --color-accent-solid: 37 99 235;
-    --color-accent-fg: 255 255 255;
-    --color-accent-soft: 239 246 255;
+    /* `accent` is for text, links and marks. Filled controls use `accent-solid`,
+       which is ink — black-on-paper reads better here than a colored button. */
+    --color-accent: 164 70 31;
+    --color-accent-hover: 134 55 21;
+    --color-accent-solid: 26 26 23;
+    --color-accent-fg: 250 250 248;
+    --color-accent-soft: 246 237 231;
 
-    --shadow: 16 24 40;
-    --glass: 250 250 250;
-    --noise-opacity: 0.035;
+    --glass: 250 250 248;
 
     color-scheme: light;
   }
 
   .dark {
-    --color-canvas: 10 10 12;
-    --color-surface: 19 19 23;
-    --color-surface-2: 26 26 31;
-    --color-line: 39 39 46;
+    --color-canvas: 14 14 13;
+    --color-surface: 22 22 21;
+    --color-surface-2: 29 29 27;
+    --color-line: 43 43 40;
+    --color-line-strong: 61 61 56;
 
-    --color-ink: 244 244 245;
-    --color-ink-muted: 163 163 173;
-    /* Kept light enough to clear 4.5:1 on `surface` — it carries small meta text. */
-    --color-ink-subtle: 140 140 152;
+    --color-ink: 244 243 239;
+    --color-ink-muted: 168 166 157;
+    /* Kept light enough to clear 4.5:1 on `canvas` — it carries small meta text. */
+    --color-ink-subtle: 131 129 122;
 
-    --color-accent: 96 165 250;
-    --color-accent-hover: 147 197 253;
-    --color-accent-solid: 37 99 235;
-    --color-accent-fg: 255 255 255;
-    --color-accent-soft: 23 37 62;
+    --color-accent: 232 138 92;
+    --color-accent-hover: 242 173 134;
+    --color-accent-solid: 244 243 239;
+    --color-accent-fg: 14 14 13;
+    --color-accent-soft: 42 28 20;
 
-    --shadow: 0 0 0;
-    --glass: 10 10 12;
-    --noise-opacity: 0.05;
+    --glass: 14 14 13;
 
     color-scheme: dark;
   }
@@ -92,89 +92,89 @@
 
 @layer components {
   .section-shell {
-    @apply mx-auto w-full max-w-content px-5 sm:px-8 lg:px-10;
+    @apply mx-auto w-full max-w-content px-5 sm:px-8 lg:px-12;
   }
 
   .section-spacing {
-    @apply py-20 sm:py-28 lg:py-32;
+    @apply py-20 sm:py-28 lg:py-36;
   }
 
-  .eyebrow {
-    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent;
+  /* --- Type -------------------------------------------------------------- */
+
+  /* Small mono labels: section numbers, field labels, metadata, tech lists.
+     The mono face is what makes the micro-typography read as deliberate. */
+  .meta {
+    @apply font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-subtle;
   }
 
   .heading-2 {
-    @apply mt-4 font-display text-[2rem] font-bold leading-[1.1] tracking-[-0.02em] text-ink sm:text-[2.75rem];
+    @apply font-display text-[2.5rem] font-medium leading-[0.98] tracking-[-0.03em] text-ink sm:text-[3.5rem] lg:text-[4rem];
   }
 
   .lede {
-    @apply mt-5 max-w-2xl text-base leading-relaxed text-ink-muted sm:text-lg;
+    @apply mt-6 max-w-prose-wide text-lg leading-[1.6] text-ink-muted sm:text-xl;
   }
 
-  /* Base card. `card-interactive` adds the lift + accent border on hover. */
-  .card {
-    @apply rounded-2xl border border-line bg-surface shadow-card;
+  /* --- Rules ------------------------------------------------------------- */
+
+  /* Hairlines do the work that card borders used to. */
+  .rule {
+    @apply border-t border-line;
   }
 
-  .card-interactive {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-card-hover;
-  }
-
-  .pill {
-    @apply inline-flex items-center rounded-full border border-line bg-surface-2 px-3 py-1 text-sm text-ink-muted transition-colors;
-  }
+  /* --- Controls ---------------------------------------------------------- */
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-accent-solid px-5 py-3 text-sm font-semibold text-accent-fg shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent-hover hover:shadow-glow disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-accent-solid px-6 py-3 text-sm font-medium text-accent-fg transition-all duration-300 hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-50;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-line bg-surface px-5 py-3 text-sm font-semibold text-ink shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent hover:shadow-card-hover;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-line-strong px-6 py-3 text-sm font-medium text-ink transition-all duration-300 hover:border-ink hover:bg-ink hover:text-canvas;
   }
 
   .icon-btn {
-    @apply inline-flex items-center justify-center rounded-xl border border-line bg-surface text-ink-muted transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent hover:shadow-card-hover;
+    @apply inline-flex items-center justify-center rounded-full border border-line text-ink-muted transition-all duration-300 hover:border-ink-subtle hover:text-ink;
   }
 }
 
 @layer utilities {
-  /* Fine film grain. Sits above the background, below content. */
-  .noise::after {
+  /* Underline that wipes in from the left on hover — used on text links so they
+     don't need a permanent rule under them. */
+  .link-wipe {
+    @apply relative inline-flex items-center gap-1.5;
+  }
+  .link-wipe::after {
     content: '';
     position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    opacity: var(--noise-opacity);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    left: 0;
+    bottom: -2px;
+    height: 1px;
+    width: 100%;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .link-wipe:hover::after,
+  .link-wipe:focus-visible::after {
+    transform: scaleX(1);
   }
 
   .glass {
-    background-color: rgb(var(--glass) / 0.72);
-    backdrop-filter: saturate(180%) blur(16px);
-    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    background-color: rgb(var(--glass) / 0.8);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
   }
 
-  /* Hairline divider that fades out at both ends. */
-  .rule-fade {
-    height: 1px;
-    background: linear-gradient(
-      to right,
-      transparent,
-      rgb(var(--color-line)),
-      transparent
-    );
+  /* Imagery sits desaturated until hovered, which keeps the page monochrome at
+     rest and lets the work supply the only real color. */
+  .media-mute {
+    filter: grayscale(1) contrast(1.02);
+    transition: filter 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   }
-
-  .text-gradient {
-    background: linear-gradient(
-      135deg,
-      rgb(var(--color-ink)),
-      rgb(var(--color-ink) / 0.65)
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  .group:hover .media-mute {
+    filter: grayscale(0) contrast(1);
   }
 }
 

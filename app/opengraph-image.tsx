@@ -16,8 +16,7 @@ export default function OpengraphImage() {
           flexDirection: 'column',
           justifyContent: 'center',
           padding: '80px',
-          background:
-            'linear-gradient(135deg, #FFFFFF 0%, #FAFAFA 55%, #EFF6FF 100%)',
+          background: '#FAFAF8',
         }}
       >
         <div
@@ -25,19 +24,18 @@ export default function OpengraphImage() {
             display: 'flex',
             alignItems: 'center',
             gap: 16,
-            fontSize: 24,
-            fontWeight: 600,
+            fontSize: 22,
+            fontWeight: 500,
             letterSpacing: 4,
             textTransform: 'uppercase',
-            color: '#2563EB',
+            color: '#A4461F',
           }}
         >
           <div
             style={{
-              width: 40,
-              height: 6,
-              borderRadius: 3,
-              background: '#2563EB',
+              width: 48,
+              height: 2,
+              background: '#A4461F',
             }}
           />
           Portfolio
@@ -46,10 +44,10 @@ export default function OpengraphImage() {
         <div
           style={{
             marginTop: 28,
-            fontSize: 82,
-            fontWeight: 800,
-            letterSpacing: -2,
-            color: '#1A1A1A',
+            fontSize: 92,
+            fontWeight: 500,
+            letterSpacing: -4,
+            color: '#1A1A17',
           }}
         >
           Md Arif Hossain
@@ -58,9 +56,9 @@ export default function OpengraphImage() {
         <div
           style={{
             marginTop: 16,
-            fontSize: 38,
-            fontWeight: 600,
-            color: '#2563EB',
+            fontSize: 34,
+            fontWeight: 400,
+            color: '#56564E',
           }}
         >
           Software Engineer II — Flutter &amp; Android
@@ -71,7 +69,7 @@ export default function OpengraphImage() {
             marginTop: 28,
             fontSize: 28,
             lineHeight: 1.4,
-            color: '#525252',
+            color: '#6E6E64',
             maxWidth: 900,
           }}
         >

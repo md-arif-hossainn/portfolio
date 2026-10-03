@@ -20,7 +20,10 @@ const config: Config = {
         canvas: withVar('canvas'),
         surface: withVar('surface'),
         'surface-2': withVar('surface-2'),
-        line: withVar('line'),
+        line: {
+          DEFAULT: withVar('line'),
+          strong: withVar('line-strong'),
+        },
         ink: {
           DEFAULT: withVar('ink'),
           muted: withVar('ink-muted'),
@@ -43,31 +46,20 @@ const config: Config = {
           'system-ui',
           'sans-serif',
         ],
+        mono: [
+          'var(--font-mono)',
+          'ui-monospace',
+          'SFMono-Regular',
+          'Menlo',
+          'monospace',
+        ],
       },
       maxWidth: {
-        content: '75rem',
+        content: '78rem',
+        /* A comfortable measure for running text — roughly 70 characters. */
+        'prose-wide': '38rem',
       },
-      boxShadow: {
-        card: '0 1px 2px rgb(var(--shadow) / 0.04), 0 1px 3px rgb(var(--shadow) / 0.06)',
-        'card-hover':
-          '0 12px 32px rgb(var(--shadow) / 0.10), 0 4px 10px rgb(var(--shadow) / 0.05)',
-        nav: '0 1px 0 rgb(var(--color-line) / 1), 0 4px 24px rgb(var(--shadow) / 0.05)',
-        glow: '0 0 0 1px rgb(var(--color-accent) / 0.25), 0 8px 32px rgb(var(--color-accent) / 0.18)',
-      },
-      keyframes: {
-        'fade-up': {
-          from: { opacity: '0', transform: 'translateY(12px)' },
-          to: { opacity: '1', transform: 'none' },
-        },
-        drift: {
-          '0%, 100%': { transform: 'translate3d(0,0,0) scale(1)' },
-          '50%': { transform: 'translate3d(0,-3%,0) scale(1.06)' },
-        },
-      },
-      animation: {
-        'fade-up': 'fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both',
-        drift: 'drift 18s ease-in-out infinite',
-      },
+      /* No elevation scale: hairlines carry the structure, not shadows. */
     },
   },
   plugins: [],

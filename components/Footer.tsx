@@ -1,41 +1,53 @@
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 import { siteConfig } from '@/lib/data';
 
 const socials = [
-  { label: 'GitHub', href: siteConfig.github, Icon: Github, external: true },
-  { label: 'LinkedIn', href: siteConfig.linkedin, Icon: Linkedin, external: true },
-  { label: 'Email', href: `mailto:${siteConfig.email}`, Icon: Mail, external: false },
+  { label: 'GitHub', href: siteConfig.github, external: true },
+  { label: 'LinkedIn', href: siteConfig.linkedin, external: true },
+  { label: 'Email', href: `mailto:${siteConfig.email}`, external: false },
 ];
 
 export default function Footer() {
   return (
-    <footer className="border-t border-line bg-canvas">
-      <div className="section-shell flex flex-col items-center justify-between gap-6 py-10 sm:flex-row">
-        <div className="text-center sm:text-left">
-          <p className="font-display font-bold tracking-tight text-ink">
+    <footer className="border-t border-line">
+      <div className="section-shell flex flex-col gap-8 py-12 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="font-display text-2xl font-medium tracking-[-0.025em] text-ink">
             {siteConfig.name}
           </p>
-          <p className="mt-1 text-sm text-ink-subtle">
-            © {new Date().getFullYear()} · Built with Next.js &amp; Tailwind CSS
+          <p className="meta mt-3">
+            © {new Date().getFullYear()}
+            <span aria-hidden className="mx-2 text-line-strong">
+              /
+            </span>
+            Built with Next.js &amp; Tailwind CSS
           </p>
         </div>
 
-        <ul className="flex items-center gap-2" aria-label="Social links">
-          {socials.map(({ label, href, Icon, external }) => (
-            <li key={label}>
-              <a
-                href={href}
-                target={external ? '_blank' : undefined}
-                rel={external ? 'noopener noreferrer' : undefined}
-                aria-label={label}
-                title={label}
-                className="icon-btn h-10 w-10"
-              >
-                <Icon size={18} aria-hidden />
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className="flex flex-col gap-6 sm:items-end">
+          <ul className="flex flex-wrap items-center gap-x-7 gap-y-2" aria-label="Social links">
+            {socials.map(({ label, href, external }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  target={external ? '_blank' : undefined}
+                  rel={external ? 'noopener noreferrer' : undefined}
+                  className="link-wipe font-mono text-[0.7rem] uppercase tracking-[0.14em] text-ink-muted transition-colors hover:text-ink"
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <a
+            href="#hero"
+            className="link-wipe font-mono text-[0.7rem] uppercase tracking-[0.14em] text-ink-subtle transition-colors hover:text-ink"
+          >
+            Back to top
+            <ArrowUp size={13} aria-hidden />
+          </a>
+        </div>
       </div>
     </footer>
   );

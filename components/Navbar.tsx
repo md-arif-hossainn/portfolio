@@ -76,22 +76,21 @@ export default function Navbar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? 'glass shadow-nav' : 'bg-transparent'
+        scrolled ? 'glass border-b border-line' : 'border-b border-transparent'
       }`}
     >
       <nav
         aria-label="Primary"
-        className="section-shell flex h-16 items-center justify-between sm:h-[4.5rem]"
+        className="section-shell flex h-16 items-center justify-between sm:h-20"
       >
         <a
           href="#hero"
-          className="font-display text-base font-bold tracking-tight text-ink transition-colors hover:text-accent"
+          className="font-display text-[0.95rem] font-medium tracking-[-0.02em] text-ink transition-colors hover:text-accent"
         >
           Md Arif Hossain
-          <span className="text-accent">.</span>
         </a>
 
-        <ul className="hidden items-center gap-0.5 md:flex">
+        <ul className="hidden items-center gap-7 md:flex">
           {navLinks.map((link) => {
             const isActive = active === link.href.slice(1);
             return (
@@ -99,15 +98,15 @@ export default function Navbar() {
                 <a
                   href={link.href}
                   aria-current={isActive ? 'true' : undefined}
-                  className={`relative block rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                    isActive ? 'text-accent' : 'text-ink-muted hover:text-ink'
+                  className={`relative block py-1 font-mono text-[0.7rem] uppercase tracking-[0.16em] transition-colors ${
+                    isActive ? 'text-ink' : 'text-ink-subtle hover:text-ink'
                   }`}
                 >
                   {link.label}
                   {isActive ? (
                     <motion.span
                       layoutId="nav-active"
-                      className="absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-accent"
+                      className="absolute -bottom-0.5 left-0 h-px w-full bg-accent"
                       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     />
                   ) : null}
@@ -117,15 +116,15 @@ export default function Navbar() {
           })}
         </ul>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 sm:gap-3">
           <ThemeToggle />
 
           <a
             href={siteConfig.cvPath}
             download
-            className="hidden rounded-xl bg-accent-solid px-4 py-2.5 text-sm font-semibold text-accent-fg shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent-hover hover:shadow-glow md:inline-flex"
+            className="hidden rounded-full bg-accent-solid px-5 py-2.5 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-accent-fg transition-opacity duration-300 hover:opacity-85 md:inline-flex"
           >
-            Download CV
+            CV
           </a>
 
           <button
@@ -148,27 +147,32 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.22, ease: 'easeOut' }}
+            transition={{ duration: 0.24, ease: 'easeOut' }}
             className="overflow-hidden border-t border-line bg-canvas md:hidden"
           >
-            <ul className="section-shell flex flex-col gap-1 py-4">
-              {navLinks.map((link) => (
+            <ul className="section-shell flex flex-col py-2">
+              {navLinks.map((link, i) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
                     onClick={(event) => handleMobileNavClick(event, link.href)}
-                    className="block rounded-lg px-3 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:bg-surface-2 hover:text-accent"
+                    className="flex items-baseline gap-4 border-b border-line py-4 text-ink transition-colors hover:text-accent"
                   >
-                    {link.label}
+                    <span className="meta">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="font-display text-xl font-medium tracking-[-0.02em]">
+                      {link.label}
+                    </span>
                   </a>
                 </li>
               ))}
-              <li className="pt-2">
+              <li className="py-5">
                 <a
                   href={siteConfig.cvPath}
                   download
                   onClick={() => setOpen(false)}
-                  className="block rounded-xl bg-accent-solid px-3 py-2.5 text-center text-sm font-semibold text-accent-fg"
+                  className="btn-primary w-full"
                 >
                   Download CV
                 </a>

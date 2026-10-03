@@ -64,8 +64,8 @@ export default function ContactForm() {
   const submitting = status === 'submitting';
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="card p-6 sm:p-8">
-      <div className="space-y-5">
+    <form onSubmit={handleSubmit} noValidate className="border-t border-line pt-8">
+      <div className="space-y-7">
         <Field
           id="name"
           label="Name"
@@ -116,7 +116,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={submitting}
-        className="btn-primary mt-7 w-full sm:w-auto"
+        className="btn-primary mt-9 w-full sm:w-auto"
       >
         {submitting ? (
           <>
@@ -134,14 +134,14 @@ export default function ContactForm() {
       {/* Live region so screen readers announce the outcome. */}
       <div aria-live="polite" className="mt-4 empty:mt-0">
         {status === 'success' ? (
-          <p className="flex items-start gap-2 rounded-xl border border-emerald-500/25 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-700 dark:text-emerald-300">
+          <p className="flex items-start gap-2 border-l-2 border-emerald-600 py-1 pl-4 text-sm text-emerald-700 dark:border-emerald-400 dark:text-emerald-300">
             <CheckCircle2 size={17} aria-hidden className="mt-0.5 shrink-0" />
             Thanks — your message is on its way. I&apos;ll get back to you soon.
           </p>
         ) : null}
 
         {status === 'error' && formError ? (
-          <p className="flex items-start gap-2 rounded-xl border border-red-500/25 bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+          <p className="flex items-start gap-2 border-l-2 border-red-600 py-1 pl-4 text-sm text-red-700 dark:border-red-400 dark:text-red-300">
             <AlertCircle size={17} aria-hidden className="mt-0.5 shrink-0" />
             {formError}
           </p>
@@ -176,13 +176,13 @@ function Field({
   disabled,
   multiline,
 }: FieldProps) {
-  const base = `w-full rounded-xl border bg-surface-2 px-4 py-3 text-sm text-ink placeholder:text-ink-subtle/70 transition-colors focus:border-accent focus:bg-surface disabled:opacity-60 ${
-    error ? 'border-red-500/60' : 'border-line'
+  const base = `w-full border-0 border-b bg-transparent px-0 py-2.5 text-ink placeholder:text-ink-subtle transition-colors focus:border-ink disabled:opacity-60 ${
+    error ? 'border-red-500/70' : 'border-ink-subtle'
   }`;
 
   return (
     <div>
-      <label htmlFor={id} className="block text-sm font-medium text-ink">
+      <label htmlFor={id} className="meta block">
         {label}
       </label>
       {multiline ? (
@@ -197,7 +197,7 @@ function Field({
           required
           aria-invalid={Boolean(error)}
           aria-describedby={error ? `${id}-error` : undefined}
-          className={`${base} mt-2 resize-y`}
+          className={`${base} mt-1 resize-y`}
         />
       ) : (
         <input
@@ -212,13 +212,13 @@ function Field({
           required
           aria-invalid={Boolean(error)}
           aria-describedby={error ? `${id}-error` : undefined}
-          className={`${base} mt-2`}
+          className={`${base} mt-1`}
         />
       )}
       {error ? (
         <p
           id={`${id}-error`}
-          className="mt-2 text-sm text-red-700 dark:text-red-300"
+          className="mt-2 font-mono text-xs text-red-700 dark:text-red-300"
         >
           {error}
         </p>
